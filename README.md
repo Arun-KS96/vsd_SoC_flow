@@ -97,6 +97,11 @@ Floorplan layout looks something like this:
 ![](/images/floorplan4.png)
 
 
+## Error
+
+When we run the **run_placement** command we got the following error:
+
+![](/images/overlap.png)
 
 
 
