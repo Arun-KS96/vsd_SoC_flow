@@ -9,6 +9,7 @@ docker run -it -v $(pwd):/openLANE_flow -v $PDK_ROOT:$PDK_ROOT -e PDK_ROOT=$PDK_
 ```
 ```javascript 
  ./flow.tcl -design chip_io -init_design_config
+ 
  ./flow.tcl -design vsdPLLSoC -init_design_config
 ```
 This will create an initialize config.tcl file inside the design **chip_io** and **vsdPLLSoC**.
