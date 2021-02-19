@@ -88,20 +88,20 @@ magic -T /home/arun/Desktop/vsdflow/work/tools/openlane_working_dir/pdks/sky130A
 ```
 Floorplan layout looks something like this:
 
-![](/images/floorplan1.png)
+![](/fig/floorplan1.png)
 
-![](/images/floorplan2.png)
+![](/fig/floorplan2.png)
 
-![](/images/floorplan3.png)
+![](/fig/floorplan3.png)
 
-![](/images/floorplan4.png)
+![](/fig/floorplan4.png)
 
 
 ## Error
 
 When we run the **run_placement** command we got the following error:
 
-![](/images/overlap.png)
+![](/fig/overlap.png)
 
 
 
