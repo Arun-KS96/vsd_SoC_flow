@@ -88,4 +88,15 @@ magic -T /home/arun/Desktop/vsdflow/work/tools/openlane_working_dir/pdks/sky130A
 ```
 Floorplan layout looks something like this:
 
+![](/images/floorplan1.png)
+
+![](/images/floorplan2.png)
+
+![](/images/floorplan3.png)
+
+![](/images/floorplan4.png)
+
+
+
+
 
