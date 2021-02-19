@@ -1,23 +1,91 @@
 # SoC Implementation flow with pads, On-chip PLL block (avsdpll_3v3), and PLL control circuit
 
-This is the cofiguration TCL file for the design SoC_flow_chip_io:
+First we set-up the project: Go to `~/openlane_working_dir/openlane` and execute the following:
+```javascript 
+export PDK_ROOT=<absolute path to where skywater-pdk and open_pdks reside>
+```
+```javascript 
+docker run -it -v $(pwd):/openLANE_flow -v $PDK_ROOT:$PDK_ROOT -e PDK_ROOT=$PDK_ROOT -u $(id -u $USER):$(id -g $USER) openlane:rc6
+```
+```javascript 
+ ./flow.tcl -design chip_io -init_design_config
+ ./flow.tcl -design vsdPLLSoC -init_design_config
+```
+This will create an initialize config.tcl file inside the design **chip_io** and **vsdPLLSoC**.
 
-![](/images/chip1.png)
+## Adding verilog files inside src folder
 
-This is the layout of the SOIC-24 with pads:
+Add the .v files inside the `~/chip_io/src` and `~/vsdPLLSoC/src` which is shown in verilog folder. The create a _lef_ folder inside src and add the lef files inside it. LEF files are shown inside lef folder.
 
-![](/images/chip2.png)
+## The flow for chip_io design
 
-Below, we have a configuration TCL file for the design SoC_flow_openlane:
+Now we execute the following command to run the interactive flow:
+```javascript 
+ ./flow.tcl -design chip_io -tag chip_io -interactive
+```
+This command created a tag named chip_io inside `chip_io/runs/`.
+ 
+Then we setup openlane package and prepare the design:
+```javascript 
+package require openlane 0.9
+```
+```javascript 
+prep -design chip_io -tag chip_io -overwrite
+```
 
-![](/images/chip3.png)
+## Setup the LEF file for chip_io
+```javascript 
+set lefs [glob $::env(DESIGN_DIR)/src/lef/*.lef]
+```
+```javascript 
+add_lefs -src $lefs
+```
 
-![](images/chip4.png)
+## Synthesis
+```javascript 
+run_synthesis
+```
 
-Below, we have a layout which contains three instances pads, avsdpll_1v8 and POR:
+## The flow for vsdPLLSoC design
 
-![](images/chip5.png)
+Now we execute the following command to run the interactive flow:
+```javascript 
+ ./flow.tcl -design vsdPLLSoC -tag vsdPLLSoC -interactive
+```
+This command created a tag named chip_io inside `vsdPLLSoC/runs/`.
+ 
+Then we setup openlane package and prepare the design:
+```javascript 
+package require openlane 0.9
+```
+```javascript 
+prep -design vsdPLLSoC -tag vsdPLLSoC -overwrite
+```
 
-![](images/chip6.png)
+## Setup the LEF file for vsdPLLSoC
+```javascript 
+set lefs [glob $::env(DESIGN_DIR)/src/lef/*.lef]
+```
+```javascript 
+add_lefs -src $lefs
+```
 
-We referred to the following github link https://github.com/rsnkhatri3/vsdPLLSoC.git files to implement our own SoC design.
+## Synthesis
+```javascript 
+run_synthesis
+```
+
+## Floorplan
+```javascript
+run_floorplan
+```
+
+## Layout in magic
+
+To view the floorplan layout in magic we use the following command:
+```javascript
+magic -T /home/arun/Desktop/vsdflow/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic lef read ../../tmp/merged.lef def read vsdPLLSoC.floorplan.def &
+```
+Floorplan layout looks something like this:
+
+
